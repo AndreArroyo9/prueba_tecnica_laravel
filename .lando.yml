@@ -1,0 +1,4 @@
+name: pruebatecnicalaravel
+recipe: laravel
+config:
+  webroot: public
