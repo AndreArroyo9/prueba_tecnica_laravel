@@ -11,6 +11,16 @@ class Servicio extends Model
     
     protected $guarded = [];
 
+    public function creator()
+    {
+        return $this->belongsTo(Creator::class);
+    }
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class);
+    }
+
     // protected function casts()
     // {
     //     return [

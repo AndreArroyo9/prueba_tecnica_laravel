@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\User::class, 'user_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('customer_servicio', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Servicio::class, 'servicio_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Customer::class, 'customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

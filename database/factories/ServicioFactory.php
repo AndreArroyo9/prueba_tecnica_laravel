@@ -21,9 +21,9 @@ class ServicioFactory extends Factory
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 10, 100),
             'image' => fake()->imageUrl(),
-            'category' => fake()->word(),
+            'category' => 'tech',
             'status' => fake()->boolean(),
-            'user_id' => fake()->numberBetween(1, 10)
+            'creator_id' => fake()->numberBetween(1, 10)
         ];
     }
 }

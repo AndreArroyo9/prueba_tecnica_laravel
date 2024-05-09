@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('category');
             $table->boolean('status');
-            $table->integer('user_id');
+            $table->foreignIdFor(App\Models\Creator::class, 'creator_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

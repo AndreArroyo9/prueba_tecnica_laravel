@@ -9,7 +9,9 @@ class Creator extends Model
 {
     use HasFactory;
 
-    public function users()
+    protected $guarded = [];
+
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

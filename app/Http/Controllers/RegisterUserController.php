@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Creator;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -26,6 +28,16 @@ class RegisterUserController extends Controller
 
         // create the user
         $newUser = User::create($attributesValidated);
+
+        // Assign the user as a creator
+        Creator::create([
+            'user_id' => $newUser->id
+        ]);
+
+        // Assignt the user as a client
+        Customer::create([
+            'user_id' => $newUser->id
+        ]);
 
         // log in
         Auth::login($newUser);

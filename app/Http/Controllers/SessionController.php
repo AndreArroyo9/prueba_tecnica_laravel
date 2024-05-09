@@ -20,12 +20,18 @@ class SessionController extends Controller
         ]);
 
         // Attempt to authenticate the user
-        if (auth()->attempt($attributesValidated)) {
+        if (!Auth::attempt($attributesValidated)) {
             // session()->regenerate();
-            return redirect('/')->with('success', 'Welcome back!');
+            throw \Illuminate\Validation\ValidationException::withMessages(['email' => 'Correo o contraseña incorrectos.']);
+
         }
 
-        return back()->withInput()->withErrors(['email' => 'Your provided credentials could not be verified.']);
+        // regenerate the session token
+        request()->session()->regenerate();
+
+        // redirect
+        return redirect('/');
+
     }
 
     public function destroy()

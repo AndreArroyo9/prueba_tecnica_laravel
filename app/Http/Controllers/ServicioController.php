@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Servicio;
+use App\Models\User;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ServicioController extends Controller
 {
@@ -23,6 +26,12 @@ class ServicioController extends Controller
 
     public function create()
     {
+
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+
         return view('servicios.create');
     }
 
@@ -60,15 +69,24 @@ class ServicioController extends Controller
             'price' => number_format((float) request('price'), 2),
             'image' => $file,
             'category' => "tech",
-            'status' => request('status'), // 1 ? public : private
-            'user_id' => 1
+            'status' => request('status'), // 1 = public, 0 = private
+            'creator_id' => Auth::user()->creator->id
         ]);
         return redirect('/servicios');
     }
 
     public function edit(Servicio $servicio)
     {
-        // auth?
+        // Authorization for guests
+        if(Auth::guest()){
+            return redirect('/login');
+        }
+
+
+        // Final authorization (only the creator can edit the service)
+        Gate::authorize('edit-servicio', $servicio);
+
+        // Return the view
         return view('servicios.edit', ['servicio' => $servicio]);
     }
 

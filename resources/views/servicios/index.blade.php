@@ -10,7 +10,7 @@
                             <h4 class="card-title">{{ $servicio->title }}</h4>
                             <h5 class="card-subtitle">{{ $servicio->price }} €</h5>
                             <p class="card-text">prueba</p>
-                            <a href="#" class="btn btn-primary">More...</a>
+                            <a href="/servicios/{{ $servicio->id }}" class="btn btn-primary">More...</a>
                         </div>
                     </div>
                 @endforeach

@@ -6,7 +6,9 @@
                     <div class="col-8 d-flex flex-column px-5">
                         <div class="d-flex flex-row justify-content-between align-items-center mb-3">
                             <h1>{{ $servicio->title }}</h1>
-                            <a href="/servicios/{{ $servicio->id }}/edit" class="btn btn-outline-primary mb-3">Editar servicio</a>
+                            @can('edit-servicio', $servicio)
+                                <a href="/servicios/{{ $servicio->id }}/edit" class="btn btn-outline-primary mb-3">Editar servicio</a>
+                            @endcan
                         </div>
                         <img src="{{ $servicio->image }}" class="img-fluid pb-3" alt="...">
                         <h2 class="pb-3">Acerca de este servicio</h2>
