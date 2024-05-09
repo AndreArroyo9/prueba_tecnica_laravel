@@ -1,6 +1,6 @@
 <x-layout>
     <div class="mx-auto pt-5 w-50">
-        <h1 class="text-left mb-5">Crear servicio</h1>
+        <h1 class="text-left mb-5">Registrarse</h1>
         <form method="POST" action="/register">
             @csrf
             <div class="row mb-3">

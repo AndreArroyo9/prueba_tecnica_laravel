@@ -25,7 +25,9 @@
     <x-nav-bar></x-nav-bar>
     <div class="w-75 m-auto d-flex flex-row justify-content-between align-items-center">
         <h1 class="text-left mt-5 mb-5 ml-3">{{ $heading }}</h1>
-        <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
+        @auth
+            <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
+        @endauth
     </div>
     {{ $slot }}
 

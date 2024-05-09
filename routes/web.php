@@ -14,3 +14,8 @@ Route::resource('usuarios', 'App\Http\Controllers\UsuarioController');
 
 Route::get('/register', ['App\Http\Controllers\RegisterUserController', 'create']);
 Route::post('/register', ['App\Http\Controllers\RegisterUserController', 'store']);
+
+// Login
+Route::get('/login', ['App\Http\Controllers\SessionController', 'create']);
+Route::post('/login', ['App\Http\Controllers\SessionController', 'store']);
+Route::post('/logout', ['App\Http\Controllers\SessionController', 'destroy']);
