@@ -19,7 +19,7 @@
                         <a class="dropdown-item" href="/servicios">Categoría 1</a>
                         <a class="dropdown-item" href="#">Categoría 2</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Mis servicios</a>
+                        <a class="dropdown-item" href="/servicios/mis-servicios">Mis servicios</a>
                     </div>
                 </li>
                 <li class="nav-item">

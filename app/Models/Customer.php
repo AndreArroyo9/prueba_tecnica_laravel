@@ -16,6 +16,7 @@ class Customer extends Model
         return $this->belongsToMany(Servicio::class);
     }
 
+
     public function user()
     {
         return $this->belongsTo(User::class);

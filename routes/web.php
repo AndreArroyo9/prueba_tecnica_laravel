@@ -6,9 +6,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/servicios/mis-servicios', ['App\Http\Controllers\ServicioController', 'misServicios']);
 Route::resource('servicios', 'App\Http\Controllers\ServicioController');
 
-Route::resource('usuarios', 'App\Http\Controllers\UsuarioController');
+// Route::get('/perfil', 'App\Http\Controllers\PerfilController', 'perfil');
 
 // Auth
 

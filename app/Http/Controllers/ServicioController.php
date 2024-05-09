@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ServicioController extends Controller
 {
@@ -100,7 +101,7 @@ class ServicioController extends Controller
             'category' => 'required|in:tech,sports,home,health,beauty,other',
             // 'status' => 'required'
         ]);
-    
+
         // auth?
 
         // update
@@ -108,13 +109,19 @@ class ServicioController extends Controller
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
-            // 'image' => $file, 
+            // 'image' => $file,
             'category' => request('category'),
             'status' => request('status')
         ]);
-        
+
         return redirect('/servicios/'. $servicio->id);
     }
 
+    public function misServicios(){
+
+        // Array with servicios where the creator_id is the creator_id of the authenticated
+        $misServicios = Auth::user()->customer->servicios;
+        return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
+    }
 
 }

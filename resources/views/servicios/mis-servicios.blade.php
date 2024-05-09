@@ -1,6 +1,8 @@
 <x-servicios-layout>
-    <x-slot:heading>Servicios</x-slot:heading>
-    @foreach($servicios as $servicio)
+    <x-slot:heading>
+        Mis servicios
+    </x-slot:heading>
+    @foreach($misServicios as $servicio)
         <div class="card mx-auto mb-3" style="width: 18rem;">
             <img src="{{ $servicio->image }}" class="card-img-top" alt="...">
             <div class="card-body">
