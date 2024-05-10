@@ -12,12 +12,14 @@ use Illuminate\Queue\SerializesModels;
 
 class GotMessage implements ShouldBroadcast
 {
+
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(array $message)
+    public function __construct(
+        public array $message)
     {
         //
     }
@@ -28,9 +30,9 @@ class GotMessage implements ShouldBroadcast
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
     public function broadcastOn(): array
-    { 
+    {
         return [
-            new PrivateChannel('channel-chat'),
+            new PrivateChannel('channel_chat'),
         ];
     }
 }

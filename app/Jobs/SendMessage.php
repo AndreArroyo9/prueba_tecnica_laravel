@@ -17,7 +17,7 @@ class SendMessage implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(Message $message)
+    public function __construct(public Message $message)
     {
         //
     }

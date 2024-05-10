@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,3 +20,11 @@ Route::post('/register', ['App\Http\Controllers\RegisterUserController', 'store'
 Route::get('/login', ['App\Http\Controllers\SessionController', 'create']);
 Route::post('/login', ['App\Http\Controllers\SessionController', 'store']);
 Route::post('/logout', ['App\Http\Controllers\SessionController', 'destroy']);
+
+// Chat
+Route::get('chat', [ChatController::class, 'index'])
+    ->name('chat');
+Route::get('/messages', [ChatController::class, 'messages'])
+    ->name('messages');
+Route::post('/message', [ChatController::class, 'message'])
+    ->name('message');
