@@ -9,8 +9,7 @@ Route::get('/', function () {
 Route::get('/servicios/mis-servicios', ['App\Http\Controllers\ServicioController', 'misServicios']);
 Route::resource('servicios', 'App\Http\Controllers\ServicioController');
 
-// Route::get('/perfil', 'App\Http\Controllers\PerfilController', 'perfil');
-
+Route::get('perfil', \App\Http\Controllers\PerfilController::class);
 // Auth
 
 Route::get('/register', ['App\Http\Controllers\RegisterUserController', 'create']);

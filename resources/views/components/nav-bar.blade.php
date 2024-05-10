@@ -18,12 +18,14 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/servicios">Categoría 1</a>
                         <a class="dropdown-item" href="#">Categoría 2</a>
+                        @auth
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/servicios/mis-servicios">Mis servicios</a>
+                        @endauth                   
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil</a>
+                    <a href="/perfil" class="nav-link" href="#">Perfil</a>
                 </li>
             </ul>
         </div>

@@ -117,6 +117,7 @@ class ServicioController extends Controller
         return redirect('/servicios/'. $servicio->id);
     }
 
+
     public function misServicios(){
 
         // Array with servicios where the creator_id is the creator_id of the authenticated

@@ -30,7 +30,7 @@
         @endauth
     </div>
     <div class="w-75 m-auto ">
-        <p class="ml-3 mb-5">Estos son todos los servicios, cursos o soluciones que has contratado.</p>
+        <p class="ml-3 mb-5">{{ $text }}</p>
         <div class="d-flex flex-wrap justify-content-between">
             {{ $slot }}
         </div>

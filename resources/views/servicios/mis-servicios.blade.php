@@ -2,6 +2,9 @@
     <x-slot:heading>
         Mis servicios
     </x-slot:heading>
+    <x-slot:text>
+        Estos son todos los servicios, cursos o soluciones que has contratado.
+    </x-slot:text>
     @foreach($misServicios as $servicio)
         <div class="card mx-auto mb-3" style="width: 18rem;">
             <img src="{{ $servicio->image }}" class="card-img-top" alt="...">
