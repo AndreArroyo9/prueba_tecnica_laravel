@@ -40,7 +40,7 @@ class ServicioController extends Controller
     {
         // dd(request()->all());
         // validate
-        $messages = (new \App\Models\Servicio())->messages();
+        $rules = (new \App\Models\Servicio())->messages();
 
 
         request()->validate([
@@ -50,7 +50,7 @@ class ServicioController extends Controller
             'image' => 'required|image',
             // 'category' => 'required|in:tech,sports,home,health,beauty,other',
             // 'status' => 'required'
-        ], $messages);
+        ], $rules);
 
         // request()->validate([
         //     'image' => 'required|image',
@@ -116,13 +116,20 @@ class ServicioController extends Controller
 
         return redirect('/servicios/'. $servicio->id);
     }
-
-
     public function misServicios(){
 
         // Array with servicios where the creator_id is the creator_id of the authenticated
         $misServicios = Auth::user()->customer->servicios;
         return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
+    }
+
+    public function  chat($id_servicio){
+//        $user = Auth::user();
+//
+//        return view('chat', ['user' => $user]);
+
+        $servicio = Servicio::find($id_servicio);
+        return view('servicios.chat', ['servicio' => $servicio]);
     }
 
 }

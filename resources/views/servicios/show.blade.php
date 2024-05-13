@@ -16,7 +16,7 @@
                     </div>
                     <div class="col d-flex flex-column pt-3">
                         <p class="text-justify">Precio: {{ $servicio->price }} €</p>
-                        <button type="button" class="btn btn-primary w-100">Contacta conmigo</button>
+                        <a type="button" class="btn btn-primary w-100" href="/servicios/{{ $servicio->id }}/chat">Contacta conmigo</a>
                         <p class="pt-3">Info usuario</p>
                     </div>
                 </div>

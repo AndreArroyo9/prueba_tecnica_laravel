@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Broadcast;
 //    return (int) $user->id === (int) $id;
 //});
 
-Broadcast::channel('channel_chat', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('channel_chat', function () { // $user, $id
+    return true;
+//    return (int) $user->id === (int) $id;
 });

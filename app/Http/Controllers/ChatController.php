@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SendMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Message;
 
 class ChatController extends Controller
 {
@@ -27,11 +28,12 @@ class ChatController extends Controller
         ]);
 
         // Dispatch queue job
-        SendMessage::dispactch($message);
+        event(new \App\Events\GotMessage($message));
+//        dispatch(new SendMessage($message));
 
         // Return response
         return response()->json([
-            'succes' => true,
+            'success' => true,
             'message' => 'Message create and job dispatched!'
         ]);
     }

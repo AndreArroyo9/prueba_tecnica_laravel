@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Servicio extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function creator()
