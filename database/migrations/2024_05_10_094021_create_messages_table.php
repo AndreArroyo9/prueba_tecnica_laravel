@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Chat;
+use App\Models\Servicio;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,10 +16,15 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\Servicio::class, 'servicio_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Chat::class, 'chat_id')->constrained()->cascadeOnDelete();
             $table->text('text')->nullable();
             $table->timestamps();
+        });
+        Schema::table('chats', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete(); // Es un cliente, no el creador
+            $table->foreignIdFor(Servicio::class, 'servicio_id')->constrained()->cascadeOnDelete(); // Es posible acceder al creador a través del servicio
+
         });
     }
 

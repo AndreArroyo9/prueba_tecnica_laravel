@@ -14,27 +14,5 @@ class ChatController extends Controller
 
         return view('chat', ['user' => $user]);
     }
-    public function messages(){
-        $messages = Message::with('user')->get()->append('time');
 
-        return response()->json($messages);
-    }
-
-    public function message(){
-        // Create message
-        $message = Message::create([
-            'user_id' => Auth::id(),
-            'text' => request('text')
-        ]);
-
-        // Dispatch queue job
-        event(new \App\Events\GotMessage($message));
-//        dispatch(new SendMessage($message));
-
-        // Return response
-        return response()->json([
-            'success' => true,
-            'message' => 'Message create and job dispatched!'
-        ]);
-    }
 }

@@ -9,15 +9,15 @@ Route::get('/', function () {
 });
 
 Route::get('/servicios/mis-servicios', ['App\Http\Controllers\ServicioController', 'misServicios']);
-Route::get('/servicios/{id_servicio}/chat', ['App\Http\Controllers\ServicioController', 'chat']);
+//Route::get('/servicios/{id_servicio}/chat', ['App\Http\Controllers\ServicioController', 'chat']);
 Route::resource('servicios', 'App\Http\Controllers\ServicioController');
 
 // Chat
-//Route::get('servicios/{id_servicio}/chat', [ServicioController::class, 'chat']);
+Route::get('servicios/{servicio_id}/chat/{user_id}', [\App\Http\Controllers\PrintMessage::class, 'index']);
+Route::get('servicios/{servicio_id}/chat/{user_id}/update', [\App\Http\Controllers\PrintMessage::class, 'updateMessages']);
+Route::post('servicios/{servicio_id}/chat/{user_id}', [\App\Http\Controllers\InsertMessage::class, 'send']);
 
-Route::post('servicios/{id_servicio}/chat', [\App\Http\Controllers\InsertMessage::class, 'send']);
-
-Route::get('servicios/{id_servicio}/chat', [\App\Http\Controllers\PrintMessage::class, 'updateMessages']);
+//Route::get('servicios/{id_servicio}/chat', [\App\Http\Controllers\PrintMessage::class, 'updateMessages']);
 
 //Route::get('/messages', [ChatController::class, 'messages'])
 //    ->name('messages');
@@ -25,8 +25,8 @@ Route::get('servicios/{id_servicio}/chat', [\App\Http\Controllers\PrintMessage::
 //    ->name('message');
 
 Route::get('perfil', \App\Http\Controllers\PerfilController::class);
-// Auth
 
+// Auth
 Route::get('/register', ['App\Http\Controllers\RegisterUserController', 'create']);
 Route::post('/register', ['App\Http\Controllers\RegisterUserController', 'store']);
 
