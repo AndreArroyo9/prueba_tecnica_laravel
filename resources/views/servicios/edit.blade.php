@@ -6,7 +6,7 @@
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger" type="submit">Eliminar servicio</button>
-            <form>
+            </form>
         </div>
         <form method="POST" action="/servicios" enctype="multipart/form-data">
             @csrf

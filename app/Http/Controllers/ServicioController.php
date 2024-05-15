@@ -27,12 +27,6 @@ class ServicioController extends Controller
 
     public function create()
     {
-
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-
         return view('servicios.create');
     }
 
@@ -78,12 +72,6 @@ class ServicioController extends Controller
 
     public function edit(Servicio $servicio)
     {
-        // Authorization for guests
-        if(Auth::guest()){
-            return redirect('/login');
-        }
-
-
         // Final authorization (only the creator can edit the service)
         Gate::authorize('edit-servicio', $servicio);
 
@@ -116,20 +104,22 @@ class ServicioController extends Controller
 
         return redirect('/servicios/'. $servicio->id);
     }
+
+    public function destroy(Servicio $servicio){
+        if(Auth::guest()){
+            return redirect('/login');
+        }
+//        Gate::authorize('delete-servicio', $servicio);
+        $servicio->delete();
+        return redirect('/servicios');
+    }
     public function misServicios(){
 
-        // Array with servicios where the creator_id is the creator_id of the authenticated
+        // Servicios que el usuario ha contratado
         $misServicios = Auth::user()->customer->servicios;
         return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
     }
 
-    public function  chat($id_servicio){
-//        $user = Auth::user();
-//
-//        return view('chat', ['user' => $user]);
 
-        $servicio = Servicio::find($id_servicio);
-        return view('servicios.chat', ['servicio' => $servicio]);
-    }
 
 }

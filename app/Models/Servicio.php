@@ -22,6 +22,10 @@ class Servicio extends Model
         return $this->belongsToMany(Customer::class)->withPivot('customer_id');
     }
 
+    public function chats(){
+        return $this->hasMany(Chat::class);
+    }
+
     // protected function casts()
     // {
     //     return [

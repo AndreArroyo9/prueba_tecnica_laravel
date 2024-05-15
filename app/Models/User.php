@@ -56,9 +56,13 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class, 'user_id');
     }
 
-    public function messages(): HasMany
+    public function admin(){
+        return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    public function chats(): HasMany
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Chat::class);
     }
 
 }

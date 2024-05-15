@@ -10,10 +10,14 @@ class InsertMessage extends Controller
 {
     public function send()
     {
+        $chat_id = request('chat_id');
+        $user_id = request('user_id');
+        $text = request('text');
+
         Message::create([
-            'user_id' => request('user_id'),
-            'servicio_id' => request('servicio_id'),
-            'text' => request('message')
+            'chat_id' => $chat_id,
+            'user_id' => $user_id,
+            'text' => $text
         ]);
 
         return response()->json([

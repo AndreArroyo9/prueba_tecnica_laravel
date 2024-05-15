@@ -14,4 +14,18 @@
                 </div>
             </div>
         @endforeach
+        <x-slot:text2>Aquí están todos los chats en los que participas.</x-slot:text2>
+        <x-slot:chats>
+            @foreach($chats as $chat)
+                <div class="card mx-auto mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ $chat->servicio->creator->user->name }}</h4>
+                        <h5 class="card-subtitle">{{ $chat->servicio->title  }}</h5>
+                        <p class="card-text">prueba</p>
+                        <a href="/servicios/{{ $chat->servicio->id }}/chat/{{ $chat->user_id }}" class="btn btn-primary">Abrir chat</a>
+                    </div>
+                </div>
+            @endforeach
+    </x-slot:chats>
+
 </x-servicios-layout>
