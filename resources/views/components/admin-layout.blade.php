@@ -1,11 +1,3 @@
-<x-servicios-layout>
-    <x-slot:heading>
-        Mis chats
-    </x-slot:heading>
-    <x-slot:text>
-        Estos son todos los chats que tienes abiertos.
-    </x-slot:text>
-</x-servicios-layout>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -13,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Chats</title>
+    <title>Laravel</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -30,12 +22,9 @@
 </head>
 
 <body class="p-3">
-<x-nav-bar></x-nav-bar>
+<x-admin-nav-bar></x-admin-nav-bar>
 <div class="w-75 m-auto d-flex flex-row justify-content-between align-items-center">
     <h1 class="text-left mt-5 mb-5 ml-3">{{ $heading }}</h1>
-    @auth
-        <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
-    @endauth
 </div>
 <div class="w-75 m-auto ">
     <p class="ml-3 mb-5">{{ $text }}</p>
@@ -43,6 +32,7 @@
         {{ $slot }}
     </div>
 </div>
+
 </body>
 
 </html>

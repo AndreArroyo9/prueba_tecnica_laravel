@@ -8,7 +8,7 @@
                 <button class="btn btn-danger" type="submit">Eliminar servicio</button>
             </form>
         </div>
-        <form method="POST" action="/servicios" enctype="multipart/form-data">
+        <form method="POST" action="/servicios/{{ $servicio->id }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="row mb-3">

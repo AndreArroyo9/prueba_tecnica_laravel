@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Servicio;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\table;
 
@@ -32,7 +33,7 @@ class ServicioPolicy
      */
     public function create(User $user): bool
     {
-        //
+
     }
 
     /**
@@ -69,16 +70,40 @@ class ServicioPolicy
 
     public function modify(User $user, Servicio $servicio): bool{
 
-//        // Verifica si es admin
-//        $admins = Admin::all();
-//        foreach ($admins as $admin) {
-//            if ($admin->user->is($user)) {
-//                return true;
-//            }
-//        }
-
         // Verifica si el usuario es el creador del servicio.
-        return $servicio->creator->user->is($user);
+        return ServicioPolicy::isCreator($user, $servicio) || ServicioPolicy::isAdmin($user);
 
+    }
+
+    public function hire(User $user, Servicio $servicio): bool{
+        if (ServicioPolicy::isAdmin($user) || ServicioPolicy::isCreator($user, $servicio)) {
+            return false;
+        }
+        return !$user->customer->servicios->contains($servicio);
+    }
+
+    public function createChat(User $user, Servicio $servicio): bool{
+        $chat = $servicio->chats->where('user_id','=', $user->id)->first();
+//        $chat = DB::table('chats')->where('user_id','=', $user->id)->where('servicio_id','=', $servicio->id)->first();
+        //  Si el chat existe, el usuario no puede empezar un chat. Tampoco si es creador o admin.
+        return is_null($chat) && !ServicioPolicy::isCreator($user, $servicio) && !ServicioPolicy::isAdmin($user);
+    }
+
+    public function viewChats(User $user, Servicio $servicio): bool{
+        return ServicioPolicy::isAdmin($user) || ServicioPolicy::isCreator($user, $servicio);
+    }
+
+    // Métodos estáticos
+    static public function isCreator(User $user, Servicio $servicio): bool{
+        return $servicio->creator->user->is($user);
+    }
+
+    static public function isAdmin(User $user): bool{
+        $admin = Admin::all()->where('user_id', $user->id)->first();
+
+        if (is_null($admin)) {
+            return false;
+        }
+        return true;
     }
 }

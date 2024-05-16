@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -72,8 +73,6 @@ class ServicioController extends Controller
 
     public function edit(Servicio $servicio)
     {
-        // Final authorization (only the creator can edit the service)
-        Gate::authorize('edit-servicio', $servicio);
 
         // Return the view
         return view('servicios.edit', ['servicio' => $servicio]);
@@ -106,17 +105,20 @@ class ServicioController extends Controller
     }
 
     public function destroy(Servicio $servicio){
-        if(Auth::guest()){
-            return redirect('/login');
-        }
-//        Gate::authorize('delete-servicio', $servicio);
+
         $servicio->delete();
         return redirect('/servicios');
     }
-    public function misServicios(){
 
+    public function contratar(Servicio $servicio)
+    {
+        Auth::user()->customer->servicios()->attach($servicio->id);
+        return redirect('/servicios');
+    }
+    public function misServicios(){
         // Servicios que el usuario ha contratado
         $misServicios = Auth::user()->customer->servicios;
+
         return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
     }
 

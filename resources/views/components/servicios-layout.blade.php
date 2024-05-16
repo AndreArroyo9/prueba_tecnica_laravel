@@ -26,22 +26,14 @@
     <div class="w-75 m-auto d-flex flex-row justify-content-between align-items-center">
         <h1 class="text-left mt-5 mb-5 ml-3">{{ $heading }}</h1>
         @auth
-        <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
+                <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
         @endauth
     </div>
     <div class="w-75 m-auto ">
-        @isset($text, $slot)
             <p class="ml-3 mb-5">{{ $text }}</p>
             <div class="d-flex flex-wrap justify-content-between">
                 {{ $slot }}
             </div>
-        @endisset
-        @isset($text2, $chats)
-            <p class="ml-3 mb-5">{{ $text2 }}</p>
-            <div class="d-flex flex-wrap justify-content-between">
-                {{ $chats }}
-            </div>
-        @endisset
     </div>
 
 </body>

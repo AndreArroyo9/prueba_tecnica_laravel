@@ -4,14 +4,18 @@
         Todos los servicios que puedes encontrar en nuestra web.
     </x-slot:text>
     @foreach($servicios as $servicio)
-        <div class="card mx-auto mb-3" style="width: 18rem;">
-            <img src="{{ $servicio->image }}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h4 class="card-title">{{ $servicio->title }}</h4>
-                <h5 class="card-subtitle">{{ $servicio->price }} €</h5>
-                <p class="card-text">prueba</p>
-                <a href="/servicios/{{ $servicio->id }}" class="btn btn-primary">Ver servicio</a>
-            </div>
-        </div>
+        <x-servicio-card>
+            <x-slot:image>{{ \Illuminate\Support\Facades\Storage::url($servicio->image) }}</x-slot:image>
+
+            <x-slot:title>{{ $servicio->title }}</x-slot:title>
+
+            <x-slot:price>{{ $servicio->price }}</x-slot:price>
+
+            <x-slot:info>{{ $servicio->category }}</x-slot:info>
+
+            <x-slot:id>{{ $servicio->id }}</x-slot:id>
+
+            <x-slot:textButton>Ver servicio</x-slot:textButton>
+        </x-servicio-card>
     @endforeach
 </x-servicios-layout>

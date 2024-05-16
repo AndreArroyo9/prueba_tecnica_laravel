@@ -7,25 +7,19 @@
         <div class="collapse navbar-collapse " id="navbarUnderlineExample">
             <ul class="navbar-nav navbar-nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/admin">Panel de administrador</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/servicios" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Explora servicios
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Servicios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/servicios">Todos los servicios</a>
+                        <a class="dropdown-item" href="/admin/privados">Privados</a>
+                        <a class="dropdown-item" href="/admin/publicos">Públicos</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/servicios">Categoría 1</a>
                         <a class="dropdown-item" href="#">Categoría 2</a>
-                        @auth
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/mis-servicios">Mis servicios</a>
-                        @endauth
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a href="/perfil" class="nav-link" href="#">Perfil</a>
                 </li>
             </ul>
         </div>
@@ -46,7 +40,6 @@
                     </button>
                 </form>
             @endauth
-            <a class="btn btn-subtle px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i class="fab fa-github"></i></a>
         </div>
     </div>
 </nav>

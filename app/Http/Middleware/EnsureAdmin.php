@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureAdmin
@@ -19,12 +20,14 @@ class EnsureAdmin
     {
         // Verificar si es admin
         $user = Auth::user();
-        $admins = Admin::all();
-        foreach ($admins as $admin) {
-            if ($admin->user->is($user)) {
-                return $next($request);
-            }
+
+        $admin = Admin::all()->where('user_id', $user->id)->first();
+
+        if (is_null($admin)) {
+            return abort(Response::HTTP_FORBIDDEN);
         }
-        return redirect('/login');
+
+        return $next($request);
+
     }
 }
