@@ -9,25 +9,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureAdmin
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $allowed): Response
     {
-        // Verificar si es admin
         $user = Auth::user();
-
-        $admin = Admin::all()->where('user_id', $user->id)->first();
-
-        if (is_null($admin)) {
-            return abort(Response::HTTP_FORBIDDEN);
+        if (!is_null($user->admin)) {
+            if ($allowed == 'false'){
+                return abort(Response::HTTP_FORBIDDEN);
+            }
         }
 
         return $next($request);
+
 
     }
 }

@@ -26,6 +26,10 @@ class Servicio extends Model
         return $this->hasMany(Chat::class);
     }
 
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
     // protected function casts()
     // {
     //     return [

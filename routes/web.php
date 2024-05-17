@@ -11,15 +11,20 @@ Route::get('/', function () {
 });
 
 // Servicio
-Route::get('/servicios',[ServicioController::class,'index']);
+Route::get('/servicios',[ServicioController::class,'index'])
+    ->middleware('admin:false');
 
 Route::get('/servicios/create', [ServicioController::class, 'create'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('admin:false');
 
 Route::post('/servicios',[ServicioController::class,'store'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('admin:false');
 
-Route::get('/servicios/{servicio}',[ServicioController::class,'show']);
+Route::get('/servicios/{servicio}',[ServicioController::class,'show'])
+    ->middleware('auth')
+    ->middleware('admin:false');
 
 Route::get('/servicios/{servicio}/edit',[ServicioController::class,'edit'])
     ->middleware('auth')
@@ -33,14 +38,17 @@ Route::delete('/servicios/{servicio}',[ServicioController::class,'destroy'])
     ->can('modify', 'servicio');
 
 Route::post('/servicios/{servicio}/contratar',[ServicioController::class,'contratar'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('admin:false');
 
 Route::get('mis-servicios', [ServicioController::class, 'misServicios'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('admin:false');
 
 // Admin
 Route::get('admin', [AdminController::class, 'index'])
-    ->middleware('auth')->middleware(\App\Http\Middleware\EnsureAdmin::class);
+    ->middleware('auth')
+    ->middleware('admin:true');
 
 
 // Chat
@@ -57,13 +65,16 @@ Route::get('servicios/{servicio_id}/chat', function ($servicio_id) {
     // Message
 Route::get('servicios/{servicio_id}/chat/{user_id}/update/{chat_id}', [ChatController::class, 'updateMessages'])
     ->middleware('auth');
+
 Route::post('servicios/{servicio_id}/chat/{user_id}/send', [\App\Http\Controllers\InsertMessage::class, 'send'])
     ->middleware('auth');
 
 
 // Pefil
-Route::get('perfil', [\App\Http\Controllers\PerfilController::class, 'index']);
-Route::get('perfil/chats', [\App\Http\Controllers\PerfilController::class, 'userChats']);
+Route::get('perfil', [\App\Http\Controllers\PerfilController::class, 'index'])
+    ->middleware('auth');
+Route::get('perfil/chats', [\App\Http\Controllers\PerfilController::class, 'userChats'])
+    ->middleware('auth');
 
 // Auth
 Route::get('/register', ['App\Http\Controllers\RegisterUserController', 'create']);

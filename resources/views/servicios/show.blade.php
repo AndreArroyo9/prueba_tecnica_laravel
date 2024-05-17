@@ -15,37 +15,38 @@
                         <img src="{{ Illuminate\Support\Facades\Storage::url($servicio->image) }}" class="img-fluid pb-3" alt="...">
                         <h2 class="pb-3">Acerca de este servicio</h2>
                         <p class="pb-3">{{ $servicio->description }}</p>
-                        @cannot('isAdmin', \App\Models\Admin::class)
-                        @cannot('isCreator', $servicio) {{--Verficia que el usuario no es creador--}}
-                            @can('hire', $servicio) {{--Verifica si el usuario ya ha contratado el servicio o no--}}
+                            @can('hire', $servicio) {{--EL usuario puede contratar el servicio si todavía no lo ha hecho--}}
                                 <form method="POST" action="/servicios/{{ $servicio->id }}/contratar">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Contratar servicio</button>
                                 </form>
                             @else
-                                <div class="alert alert-success" role="alert">
-                                    ¡Servicio contratado!
-                                </div>
+                                @cannot('viewChats', $servicio)
+                                    <div class="alert alert-success" role="alert">
+                                        ¡Servicio contratado!
+                                    </div>
+                                @endcan
                             @endcan
-                        @endcannot
-                        @endcannot
                     </div>
 
                     <div class="col d-flex flex-column pt-3">
                         <p class="text-justify">Precio: {{ $servicio->price }} €</p>
 
-{{--                        Dos botones: El primero crea un chat en caso de que no haya ningún chat entre los dos usuarios, el segundo--}}
-{{--                        abre el chat que ya ha creado el usuario en el servicio. El creador no puede usar ninguno de los dos.--}}
-                        @cannot('viewChats', $servicio)
-                            @can('createChat', $servicio)
+                        @can('createChat', $servicio) {{--Solo se pueden crear chats si no existe ninguno, tampoco pueden creadores o admins--}}
+
                             <form method="POST" action="/servicios/{{ $servicio->id }}/chat/{{ auth()->id() }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary w-100">Contacta conmigo</button>
                             </form>
-                            @else
-                                <a href="/servicios/{{ $servicio->id }}/chat/{{ auth()->id() }}" class="btn btn-primary w-100">Abrir chat</a>
-                            @endcan
-                        @endcannot
+
+                        @else
+
+                            @cannot('viewChats', $servicio) {{--Los creadores no pueden abrir chats--}}
+                                    <a href="/servicios/{{ $servicio->id }}/chat/{{ auth()->id() }}" class="btn btn-primary w-100">Abrir chat</a>
+                            @endcannot
+
+                        @endcan
+
                         <p class="pt-3">Info usuario</p>
                         @can('viewChats', $servicio) {{--Solo el creador puede ver este apartado--}}
                             @isset($chats)

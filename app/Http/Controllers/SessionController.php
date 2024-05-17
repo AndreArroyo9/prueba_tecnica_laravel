@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Policies\ServicioPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,6 @@ class SessionController extends Controller
 
         // Attempt to authenticate the user
         if (!Auth::attempt($attributesValidated)) {
-            // session()->regenerate();
             throw \Illuminate\Validation\ValidationException::withMessages(['email' => 'Correo o contraseña incorrectos.']);
 
         }
@@ -30,6 +30,9 @@ class SessionController extends Controller
         request()->session()->regenerate();
 
         // redirect
+        if (ServicioPolicy::isAdmin(Auth::user())) {
+            return redirect('/admin');
+        }
         return redirect('/');
 
     }

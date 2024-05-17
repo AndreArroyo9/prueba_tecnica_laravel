@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Servicio;
 use App\Models\User;
+use App\Policies\ServicioPolicy;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
@@ -59,15 +61,16 @@ class ServicioController extends Controller
         // auth?
 
         // store
-        Servicio::create([
+        $servicio = Servicio::create([
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
             'image' => $file,
-            'category' => "tech",
             'status' => request('status'), // 1 = public, 0 = private
+            'category_id' => request('category'),
             'creator_id' => Auth::user()->creator->id
         ]);
+
         return redirect('/servicios');
     }
 
@@ -85,28 +88,30 @@ class ServicioController extends Controller
             'description' => 'required|min:10',
             'price' => 'required|numeric',
             'image' => 'nullable',
-            'category' => 'required|in:tech,sports,home,health,beauty,other',
             // 'status' => 'required'
         ]);
 
         // auth?
 
         // update
-        $servicio->update([
+        $test = $servicio->update([
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
             // 'image' => $file,
-            'category' => request('category'),
+            'category_id' => request('category'),
             'status' => request('status')
         ]);
-
         return redirect('/servicios/'. $servicio->id);
     }
 
     public function destroy(Servicio $servicio){
 
         $servicio->delete();
+
+        if (ServicioPolicy::isAdmin(Auth::user())){
+            return redirect('/admin');
+        }
         return redirect('/servicios');
     }
 
