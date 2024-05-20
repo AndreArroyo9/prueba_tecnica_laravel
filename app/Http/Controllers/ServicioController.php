@@ -25,7 +25,8 @@ class ServicioController extends Controller
 
     public function show(Servicio $servicio)
     {
-        return view('servicios.show', ['servicio' => $servicio]);
+        $serviciosCreator = $servicio->creator->servicios->where('status','=','1');
+        return view('servicios.show', ['servicio' => $servicio, 'serviciosCreator' => $serviciosCreator]);
     }
 
     public function create()
@@ -35,7 +36,6 @@ class ServicioController extends Controller
 
     public function store()
     {
-        // dd(request()->all());
         // validate
         $rules = (new \App\Models\Servicio())->messages();
 
@@ -49,19 +49,12 @@ class ServicioController extends Controller
             // 'status' => 'required'
         ], $rules);
 
-        // request()->validate([
-        //     'image' => 'required|image',
-        //     'title' => 'required|min:5'
-        // ]);
 
         // Store the file in storage\app\public folder
         $file = request('image')->store('images','public');
 
         // Store the information in the database
-        // auth?
-
-        // store
-        $servicio = Servicio::create([
+        Servicio::create([
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
@@ -91,7 +84,6 @@ class ServicioController extends Controller
             // 'status' => 'required'
         ]);
 
-        // auth?
 
         // update
         $test = $servicio->update([

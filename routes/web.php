@@ -11,8 +11,8 @@ Route::get('/', function () {
 });
 
 // Servicio
-Route::get('/servicios',[ServicioController::class,'index'])
-    ->middleware('admin:false');
+Route::get('/servicios',[ServicioController::class,'index']);
+//    ->middleware('admin:false');
 
 Route::get('/servicios/create', [ServicioController::class, 'create'])
     ->middleware('auth')
@@ -23,7 +23,6 @@ Route::post('/servicios',[ServicioController::class,'store'])
     ->middleware('admin:false');
 
 Route::get('/servicios/{servicio}',[ServicioController::class,'show'])
-    ->middleware('auth')
     ->middleware('admin:false');
 
 Route::get('/servicios/{servicio}/edit',[ServicioController::class,'edit'])

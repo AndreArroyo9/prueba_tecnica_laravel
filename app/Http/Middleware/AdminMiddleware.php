@@ -19,6 +19,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next, string $allowed): Response
     {
         $user = Auth::user();
+        if (is_null($user)) {
+            return $next($request);
+
+        }
         if (!is_null($user->admin)) {
             if ($allowed == 'false'){
                 return abort(Response::HTTP_FORBIDDEN);

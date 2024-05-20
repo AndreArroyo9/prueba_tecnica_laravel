@@ -15,6 +15,7 @@
                         <img src="{{ Illuminate\Support\Facades\Storage::url($servicio->image) }}" class="img-fluid pb-3" alt="...">
                         <h2 class="pb-3">Acerca de este servicio</h2>
                         <p class="pb-3">{{ $servicio->description }}</p>
+                        @auth
                             @can('hire', $servicio) {{--EL usuario puede contratar el servicio si todavía no lo ha hecho--}}
                                 <form method="POST" action="/servicios/{{ $servicio->id }}/contratar">
                                     @csrf
@@ -27,6 +28,7 @@
                                     </div>
                                 @endcan
                             @endcan
+                        @endauth
                     </div>
 
                     <div class="col d-flex flex-column pt-3">
@@ -46,8 +48,16 @@
                             @endcannot
 
                         @endcan
-
-                        <p class="pt-3">Info usuario</p>
+                            <button class="btn btn-outline-secondary btn-lg mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Más servicios de {{ $servicio->creator->user->name }}
+                            </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="list-group">
+                                @foreach($serviciosCreator as $servicioCreator)
+                                <a class="list-group-item" href="/servicios/{{ $servicioCreator->id }}"> {{ $servicioCreator->title }}</a>
+                                @endforeach
+                            </div>
+                        </div>
                         @can('viewChats', $servicio) {{--Solo el creador puede ver este apartado--}}
                             @isset($chats)
                                 <h3 class="mb-3">Chats de este servicio</h3>

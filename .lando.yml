@@ -1,6 +1,7 @@
 name: pruebatecnicalaravel
 recipe: laravel
 config:
+  php: '8.2'
   webroot: public
 services:
   node:
@@ -16,3 +17,9 @@ tooling:
     service: node
   yarn:
     service: node
+  phpunit:
+    service: appserver
+    cmd: vendor/bin/phpunit
+  pest:
+    service: appserver
+    cmd: vendor/bin/pest
