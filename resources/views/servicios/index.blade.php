@@ -11,19 +11,7 @@
 
             <x-slot:price>{{ $servicio->price }}</x-slot:price>
 
-            <x-slot:info>Categoría:
-                @switch( $servicio->category_id )
-                    @case(1)
-                        Tecnología
-                        @break
-                    @case(2)
-                        Deportes
-                        @break
-                    @case(3)
-                        Música
-                        @break
-                @endswitch
-            </x-slot:info>
+            <x-slot:info>Categoría: {{ $servicio->category }}</x-slot:info>
 
             <x-slot:id>{{ $servicio->id }}</x-slot:id>
 

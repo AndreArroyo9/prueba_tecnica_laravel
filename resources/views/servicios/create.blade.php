@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </fieldset>
-            <x-category-fieldset category="1"></x-category-fieldset>
+            <x-category-fieldset category="Tecnología"></x-category-fieldset>
             <x-form-button>Crear servicio</x-form-button>
         </form>
     </div>

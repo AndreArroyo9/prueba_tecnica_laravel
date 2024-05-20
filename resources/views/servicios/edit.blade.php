@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </fieldset>
-            <x-category-fieldset category="{{ $servicio->category_id }}"></x-category-fieldset>
+            <x-category-fieldset category="{{ $servicio->category }}"></x-category-fieldset>
             <x-form-button class="mt-3 mr-3">Actualizar servicio</x-form-button>
             <a href="/servicios" class="btn btn-secondary mt-3" type="submit">Cancelar</a>
         </form>

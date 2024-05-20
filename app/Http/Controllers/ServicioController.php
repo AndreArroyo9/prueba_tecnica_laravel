@@ -60,7 +60,7 @@ class ServicioController extends Controller
             'price' => number_format((float) request('price'), 2),
             'image' => $file,
             'status' => request('status'), // 1 = public, 0 = private
-            'category_id' => request('category'),
+            'category' => request('category'),
             'creator_id' => Auth::user()->creator->id
         ]);
 
@@ -86,12 +86,12 @@ class ServicioController extends Controller
 
 
         // update
-        $test = $servicio->update([
+        $servicio->update([
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
             // 'image' => $file,
-            'category_id' => request('category'),
+            'category' => request('category'),
             'status' => request('status')
         ]);
         return redirect('/servicios/'. $servicio->id);
