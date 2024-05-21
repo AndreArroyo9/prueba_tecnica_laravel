@@ -1,26 +1,25 @@
 <?php
 
-namespace Tests\Feature;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\post;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Artisan;
-use Tests\TestCase;
+it('has register page', function () {
+    $response = $this->get('/register');
 
-class RegisterUserTest extends TestCase
-{
-    use RefreshDatabase; // Migra la base de datos para cada test
-    /**
-     * Verifica que la ruta '/servicios' devuelve la vista 'servicios.index'
-     */
-    public function test_register_devuelve_vista(){
+    $response->assertStatus(200);
+});
 
-        // Carga el formulario de register
-        $response = $this->get('/servicios');
+test('user can create an account', function () {
+    post('/register', [
+        'name' => 'John Doe',
+        'last_name' => 'Doe',
+        'email' => 'john.doe@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ])
+        ->assertStatus(302);
 
-        // Aserciones
-        $response->assertStatus(200)->assertViewIs('servicios.index');
-    }
-
-
-}
+    assertDatabaseHas('users', [
+        'email' => 'john.doe@example.com'
+    ]);
+});

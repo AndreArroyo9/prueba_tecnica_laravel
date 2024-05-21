@@ -2,18 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Servicio;
-use App\Models\User;
-use App\Policies\ServicioPolicy;
-use Illuminate\Contracts\Cache\Store;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ServicioController extends Controller
 {

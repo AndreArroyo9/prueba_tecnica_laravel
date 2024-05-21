@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Página de configuración para tests de Pest.lando
+ */
+
 // Métodos de testing de Laravel
 uses(\Tests\TestCase::class)->in('Feature');
 

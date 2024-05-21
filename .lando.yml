@@ -3,24 +3,12 @@ recipe: laravel
 config:
   php: '8.2'
   webroot: public
-  xdebug: 'develop,debug'
-services:
-  node:
-    type: node:20
-    build:
-      - npm install
+  xdebug: true
 tooling:
-  npm:
-    service: node
-  node:
-    service: node
-  gulp:
-    service: node
-  yarn:
-    service: node
   phpunit:
     service: appserver
-    cmd: vendor/bin/phpunit
+    cmd: ./vendor/bin/phpunit
   pest:
     service: appserver
-    cmd: vendor/bin/pest
+    cmd: ./vendor/bin/pest
+

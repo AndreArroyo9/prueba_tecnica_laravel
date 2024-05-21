@@ -16,11 +16,10 @@ test('Tiene servicios', function () {
 });
 
 test('solo muestra servicios públicos', function () {
-    seed(DatabaseSeeder::class);
     $servicios = Servicio::all()->where('status', '=',0);
 
     foreach ($servicios as $servicio) {
-        $this->get('/servicios/' . $servicio->id)->assertStatus(403);
+        $this->get('/servicios/' . $servicio->id)->assertForbidden();
     }
 });
 
@@ -28,7 +27,6 @@ describe('crear servicio', function () {
 
     // Antes de cada test carga el DatabaseSeeder y asigna un usuario.
     beforeEach(function () {
-        seed(DatabaseSeeder::class);
         $this->user = User::all()->find(1)->first();
     });
 
@@ -76,7 +74,6 @@ describe('editar servicio', function () {
 
     // Antes de cada test carga el DatabaseSeeder y asigna un usuario y uno de sus servicios.
     beforeEach(function () {
-        seed(DatabaseSeeder::class);
         $this->servicio = Servicio::all()->find(1);
         $this->user = User::all()->find($this->servicio->creator->id);
     });
@@ -134,7 +131,6 @@ describe('editar servicio', function () {
 
 describe('eliminar servicio', function () {
     beforeEach(function () {
-        seed(DatabaseSeeder::class);
         $this->servicio = Servicio::all()->find(1);
         $this->user = User::all()->find($this->servicio->creator->id);
     });
@@ -162,7 +158,7 @@ describe('eliminar servicio', function () {
     test('usuario autenticado y no creador', function () {
         $noCreatorUser = User::all()->where('id', '>', $this->user->id)->first();
         actingAs($noCreatorUser)->delete('/servicios/'.$this->servicio->id)
-            ->assertStatus(403);
+            ->assertForbidden();
 
         assertDatabaseHas('servicios', [
             'id' => $this->servicio->id,
