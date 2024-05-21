@@ -7,8 +7,8 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * Ejecuta un seeder antes de cada test
+     * Ejecuta el DatabaseSeeder antes de cada test
      *
      */
-    protected $seed = true;
+     protected $seed = true;
 }

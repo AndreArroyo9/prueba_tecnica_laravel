@@ -3,6 +3,7 @@ recipe: laravel
 config:
   php: '8.2'
   webroot: public
+  xdebug: 'develop,debug'
 services:
   node:
     type: node:20

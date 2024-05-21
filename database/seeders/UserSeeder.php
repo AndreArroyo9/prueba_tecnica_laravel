@@ -11,11 +11,11 @@ use Illuminate\Database\Seeder;
 class UserSeeder extends Seeder
 {
     /**
-     * Crea 4 usuarios y les asigna 2 servicios creados por cada uno.
+     * Crea 2 usuarios y les asigna 2 servicios creados por cada uno.
      */
     public function run(): void
     {
-        User::factory(4)
+        User::factory(2)
             ->has(Creator::factory()
                     ->has(Servicio::factory(2))
             )->create();

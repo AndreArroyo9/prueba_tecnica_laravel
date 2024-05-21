@@ -30,14 +30,6 @@ class Servicio extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // protected function casts()
-    // {
-    //     return [
-    //         'status' => 'boolean',
-
-    //     ];
-    // }
-
     public function messages(): array
     {
         return [

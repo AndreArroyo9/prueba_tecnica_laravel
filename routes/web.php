@@ -23,14 +23,16 @@ Route::post('/servicios',[ServicioController::class,'store'])
     ->middleware('admin:false');
 
 Route::get('/servicios/{servicio}',[ServicioController::class,'show'])
-    ->middleware('admin:false');
+    ->middleware('admin:false')
+    ->can('view', 'servicio');
 
 Route::get('/servicios/{servicio}/edit',[ServicioController::class,'edit'])
     ->middleware('auth')
     ->can('modify','servicio');
 
 Route::patch('/servicios/{servicio}',[ServicioController::class,'update'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->can('modify','servicio');
 
 Route::delete('/servicios/{servicio}',[ServicioController::class,'destroy'])
     ->middleware('auth')

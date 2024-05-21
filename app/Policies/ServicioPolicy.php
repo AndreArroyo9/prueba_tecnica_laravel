@@ -21,6 +21,13 @@ class ServicioPolicy
 
     }
 
+    public function view(User $user, Servicio $servicio): bool{
+        if ($servicio->status == 1 || ServicioPolicy::isCreator($user, $servicio) || ServicioPolicy::isAdmin($user)) {
+            return true;
+        }
+        return false;
+    }
+
     public function hire(User $user, Servicio $servicio): bool{
         if (ServicioPolicy::isCreator($user, $servicio)) {
             return false;

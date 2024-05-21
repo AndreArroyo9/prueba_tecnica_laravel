@@ -101,9 +101,6 @@ class ServicioController extends Controller
 
         $servicio->delete();
 
-        if (ServicioPolicy::isAdmin(Auth::user())){
-            return redirect('/admin');
-        }
         return redirect('/servicios');
     }
 

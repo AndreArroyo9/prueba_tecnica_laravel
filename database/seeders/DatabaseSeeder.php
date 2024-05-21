@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Crea 2 usuarios y les asigna 2 servicios creados por cada uno.
      */
     public function run(): void
     {
