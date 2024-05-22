@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Página de configuración para tests de Pest.lando
+ * Página de configuración de Pest
  */
 
 // Métodos de testing de Laravel

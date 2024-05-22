@@ -16,21 +16,26 @@ test('Tiene servicios', function () {
 });
 
 test('solo muestra servicios públicos', function () {
+    // Servicios privados
+    $user = User::all()->first();
     $servicios = Servicio::all()->where('status', '=',0);
 
+    // Assert usuarios no autenticados no tienen acceso a los servicios
     foreach ($servicios as $servicio) {
-        $this->get('/servicios/' . $servicio->id)->assertForbidden();
+        $this->get('/servicios/' . $servicio->id)
+            ->assertForbidden();
     }
+
 });
 
 describe('crear servicio', function () {
 
-    // Antes de cada test carga el DatabaseSeeder y asigna un usuario.
+    // Asigna un usuario.
     beforeEach(function () {
         $this->user = User::all()->find(1)->first();
     });
 
-    test('usuario no autenticado', function () {
+    test('usuario no autenticado no puede crear', function () {
         post('/servicios', [
             'title' => 'Usuario no autenticado crea servicio test',
             'description' => 'Servicio test',
@@ -48,7 +53,7 @@ describe('crear servicio', function () {
         ]);
     });
 
-    test('usuario autenticado y creador del servicio', function () {
+    test('usuario autenticado puede crear', function () {
         actingAs($this->user)->post('/servicios', [
             'title' => 'Usuario autenticado crea servicio test',
             'description' => 'Servicio test',
@@ -78,7 +83,7 @@ describe('editar servicio', function () {
         $this->user = User::all()->find($this->servicio->creator->id);
     });
 
-    test('usuario no autenticado', function () {
+    test('usuario no autenticado no puede editar', function () {
         patch('/servicios/' . $this->servicio->id, [
             'title' => 'Usuario no autenticado edita servicio test',
             'description' => 'Editando descripción de servicio test',
@@ -164,6 +169,6 @@ describe('eliminar servicio', function () {
             'id' => $this->servicio->id,
         ]);
     });
-
 });
+
 

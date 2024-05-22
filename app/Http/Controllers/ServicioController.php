@@ -106,6 +106,32 @@ class ServicioController extends Controller
         return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
     }
 
+    public function category(String  $category)
+    {
+        switch ($category) {
+            case 'music':
+                $category = 'Música';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            case 'sports':
+                $category = 'Deportes';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            case 'tech':
+                $category = 'Tecnología';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            default:
+                return redirect('/servicios');
+        }
+
+        if ($servicios->isNotEmpty()) {
+            return view('servicios.category', ['servicios' => $servicios, 'category' => $category]);
+        }else{
+            return view('servicios.category', ['servicios' => $servicios, 'category' => $category]);
+        }
+    }
+
 
 
 }

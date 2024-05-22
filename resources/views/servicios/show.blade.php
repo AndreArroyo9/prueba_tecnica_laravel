@@ -59,9 +59,9 @@
                             </div>
                         </div>
                         @can('viewChats', $servicio) {{--Solo el creador puede ver este apartado--}}
-                            @isset($chats)
-                                <h3 class="mb-3">Chats de este servicio</h3>
-                           @endisset
+                            @if($servicio->chats->isNotEmpty())
+                                <h3 class="mb-3 mt-3">Chats de este servicio</h3>
+                           @endif
                             <div class="list-group">
                                 @foreach($servicio->chats as $chat)
                                     <x-chat-item href="/servicios/{{ $servicio->id }}/chat/{{ $chat->user_id }}">

@@ -11,4 +11,7 @@ tooling:
   pest:
     service: appserver
     cmd: ./vendor/bin/pest
-
+  behat:
+    service: appserver
+    description: Run behat tests locally.
+    cmd: ./vendor/bin/behat
