@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Servicio extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function creator()
@@ -19,16 +19,16 @@ class Servicio extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(Customer::class)->withPivot('customer_id');
+        return $this->belongsToMany(Customer::class);
     }
 
-    // protected function casts()
-    // {
-    //     return [
-    //         'status' => 'boolean',
+    public function chats(){
+        return $this->hasMany(Chat::class);
+    }
 
-    //     ];
-    // }
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
     public function messages(): array
     {

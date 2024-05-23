@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Soluciones online</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,15 +26,16 @@
     <div class="w-75 m-auto d-flex flex-row justify-content-between align-items-center">
         <h1 class="text-left mt-5 mb-5 ml-3">{{ $heading }}</h1>
         @auth
-        <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
+                <a href="/servicios/create" class="btn btn-outline-success mr-3">Crear servicio</a>
         @endauth
     </div>
     <div class="w-75 m-auto ">
-        <p class="ml-3 mb-5">{{ $text }}</p>
-        <div class="d-flex flex-wrap justify-content-between">
-            {{ $slot }}
-        </div>
+            <p class="ml-3 mb-5">{{ $text }}</p>
+            <div class="d-flex flex-wrap justify-content-between">
+                {{ $slot }}
+            </div>
     </div>
+
 </body>
 
 </html>

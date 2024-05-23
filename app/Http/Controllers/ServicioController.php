@@ -3,44 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Servicio;
-use App\Models\User;
-use Illuminate\Contracts\Cache\Store;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ServicioController extends Controller
 {
     public function index()
     {
-        $servicios = Servicio::all();
+        $servicios = Servicio::all()->where('status','=','1');
         return view('servicios.index', ['servicios' => $servicios]);
     }
 
     public function show(Servicio $servicio)
     {
-        return view('servicios.show', ['servicio' => $servicio]);
+        $serviciosCreator = $servicio->creator->servicios->where('status','=','1');
+        return view('servicios.show', ['servicio' => $servicio, 'serviciosCreator' => $serviciosCreator]);
     }
 
     public function create()
     {
-
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-
         return view('servicios.create');
     }
 
     public function store()
     {
-        // dd(request()->all());
         // validate
-        $messages = (new \App\Models\Servicio())->messages();
+        $rules = (new \App\Models\Servicio())->messages();
 
 
         request()->validate([
@@ -50,42 +37,28 @@ class ServicioController extends Controller
             'image' => 'required|image',
             // 'category' => 'required|in:tech,sports,home,health,beauty,other',
             // 'status' => 'required'
-        ], $messages);
+        ], $rules);
 
-        // request()->validate([
-        //     'image' => 'required|image',
-        //     'title' => 'required|min:5'
-        // ]);
 
         // Store the file in storage\app\public folder
         $file = request('image')->store('images','public');
 
         // Store the information in the database
-        // auth?
-
-        // store
         Servicio::create([
             'title' => request('title'),
             'description' => request('description'),
             'price' => number_format((float) request('price'), 2),
             'image' => $file,
-            'category' => "tech",
             'status' => request('status'), // 1 = public, 0 = private
+            'category' => request('category'),
             'creator_id' => Auth::user()->creator->id
         ]);
+
         return redirect('/servicios');
     }
 
     public function edit(Servicio $servicio)
     {
-        // Authorization for guests
-        if(Auth::guest()){
-            return redirect('/login');
-        }
-
-
-        // Final authorization (only the creator can edit the service)
-        Gate::authorize('edit-servicio', $servicio);
 
         // Return the view
         return view('servicios.edit', ['servicio' => $servicio]);
@@ -98,11 +71,9 @@ class ServicioController extends Controller
             'description' => 'required|min:10',
             'price' => 'required|numeric',
             'image' => 'nullable',
-            'category' => 'required|in:tech,sports,home,health,beauty,other',
             // 'status' => 'required'
         ]);
 
-        // auth?
 
         // update
         $servicio->update([
@@ -113,16 +84,54 @@ class ServicioController extends Controller
             'category' => request('category'),
             'status' => request('status')
         ]);
-
         return redirect('/servicios/'. $servicio->id);
     }
 
+    public function destroy(Servicio $servicio){
 
+        $servicio->delete();
+
+        return redirect('/servicios');
+    }
+
+    public function contratar(Servicio $servicio)
+    {
+        Auth::user()->customer->servicios()->attach($servicio->id);
+        return redirect('/servicios');
+    }
     public function misServicios(){
-
-        // Array with servicios where the creator_id is the creator_id of the authenticated
+        // Servicios que el usuario ha contratado
         $misServicios = Auth::user()->customer->servicios;
+
         return view('servicios.mis-servicios', ['misServicios' => $misServicios]);
     }
+
+    public function category(String  $category)
+    {
+        switch ($category) {
+            case 'music':
+                $category = 'Música';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            case 'sports':
+                $category = 'Deportes';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            case 'tech':
+                $category = 'Tecnología';
+                $servicios = Servicio::all()->where('status', '=', '1')->where('category', '=', $category);
+                break;
+            default:
+                return redirect('/servicios');
+        }
+
+        if ($servicios->isNotEmpty()) {
+            return view('servicios.category', ['servicios' => $servicios, 'category' => $category]);
+        }else{
+            return view('servicios.category', ['servicios' => $servicios, 'category' => $category]);
+        }
+    }
+
+
 
 }

@@ -3,7 +3,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUnderlineExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="/images/bootstrap-logo.svg" width="36" /></a>
+        <a class="navbar-brand" href="#"><img src="{{ \Illuminate\Support\Facades\Storage::url('logo.png') }}" width="36" /></a>
         <div class="collapse navbar-collapse " id="navbarUnderlineExample">
             <ul class="navbar-nav navbar-nav-underline">
                 <li class="nav-item">
@@ -16,17 +16,20 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/servicios">Todos los servicios</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/servicios">Categoría 1</a>
-                        <a class="dropdown-item" href="#">Categoría 2</a>
+                        <a class="dropdown-item" href="/servicios-music">Música</a>
+                        <a class="dropdown-item" href="/servicios-sports">Deportes</a>
+                        <a class="dropdown-item" href="/servicios-tech">Tecnología</a>
                         @auth
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/servicios/mis-servicios">Mis servicios</a>
-                        @endauth                   
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/mis-servicios">Mis servicios</a>
+                        @endauth
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="/perfil" class="nav-link" href="#">Perfil</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="/perfil" class="nav-link" href="#">Perfil</a>
+                    </li>
+                @endauth
             </ul>
         </div>
         <div class="d-flex align-items-center ms-auto">

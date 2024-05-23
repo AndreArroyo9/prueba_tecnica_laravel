@@ -1,18 +1,17 @@
 name: pruebatecnicalaravel
 recipe: laravel
 config:
+  php: '8.2'
   webroot: public
-services:
-  node:
-    type: node:20
-    build:
-      - npm install
+  xdebug: true
 tooling:
-  npm:
-    service: node
-  node:
-    service: node
-  gulp:
-    service: node
-  yarn:
-    service: node
+  phpunit:
+    service: appserver
+    cmd: ./vendor/bin/phpunit
+  pest:
+    service: appserver
+    cmd: ./vendor/bin/pest
+  behat:
+    service: appserver
+    description: Run behat tests locally.
+    cmd: ./vendor/bin/behat

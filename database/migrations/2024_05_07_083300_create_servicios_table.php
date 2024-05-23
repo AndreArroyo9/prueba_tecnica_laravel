@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,8 +18,8 @@ return new class extends Migration
             $table->longText('description');
             $table->float('price',2);
             $table->string('image');
-            $table->string('category');
             $table->boolean('status');
+            $table->string('category');
             $table->foreignIdFor(App\Models\Creator::class, 'creator_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
