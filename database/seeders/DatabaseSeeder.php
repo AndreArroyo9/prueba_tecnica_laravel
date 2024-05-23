@@ -9,12 +9,10 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Crea 2 usuarios y les asigna 2 servicios creados por cada uno.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class,
-        ]);
+
     }
 }

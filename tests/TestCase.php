@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Database\Seeders\TestingSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -10,5 +11,5 @@ abstract class TestCase extends BaseTestCase
      * Ejecuta el DatabaseSeeder antes de cada test
      *
      */
-     protected $seed = true;
+     protected $seeder = TestingSeeder::class;
 }

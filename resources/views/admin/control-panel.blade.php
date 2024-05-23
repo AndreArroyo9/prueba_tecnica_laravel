@@ -2,9 +2,19 @@
     <x-slot:heading>
         Panel de administrador
     </x-slot:heading>
-    <x-slot:text>
-        Aquí están todos los servicios (públicos y privados).
-    </x-slot:text>
+    @if($status == 3)
+        <x-slot:text>
+            Aquí están todos los servicios (públicos y privados).
+        </x-slot:text>
+    @elseif($status == 1)
+        <x-slot:text>
+            Aquí están todos los servicios públicos
+        </x-slot:text>
+    @else
+        <x-slot:text>
+            Aquí están todos los servicios privados
+        </x-slot:text>
+    @endif
 
     @foreach($servicios as $servicio)
         <x-servicio-card>

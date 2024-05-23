@@ -56,6 +56,15 @@ Route::get('admin', [AdminController::class, 'index'])
     ->middleware('auth')
     ->middleware('admin:true');
 
+Route::get('/admin/privados', [AdminController::class, 'privado'])
+    ->middleware('auth')
+    ->middleware('admin:true');
+
+Route::get('/admin/publicos', [AdminController::class, 'publico'])
+    ->middleware('auth')
+    ->middleware('admin:true');
+
+
 
 // Chat
 Route::post('servicios/{servicio_id}/chat/{user_id}', [ChatController::class, 'store'])

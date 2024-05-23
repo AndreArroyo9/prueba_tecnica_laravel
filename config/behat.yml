@@ -1,0 +1,9 @@
+# behat.yml
+default:
+    autoload:
+        '': "%paths.base%/../tests/pruebasBehat/bootstrap"
+    suites:
+        servicios:
+            paths:
+              - "%paths.base%/../tests/pruebasBehat/servicios"
+

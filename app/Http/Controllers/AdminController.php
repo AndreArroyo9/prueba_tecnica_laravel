@@ -12,57 +12,18 @@ class AdminController extends Controller
     public function index(){
         $servicios = Servicio::all();
 
-//        $admin = Admin::all()->where('user_id', Auth::id())->first();
-//        $admin = Admin::all()->find(1);
-//        dd($admin->user);
-        return view('admin.control-panel', ['servicios' => $servicios]);
+        return view('admin.control-panel', ['servicios' => $servicios, 'status' => 3]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function publico(){
+        $servicios = Servicio::all()->where('status', 1);
+
+        return view('admin.control-panel', ['servicios' => $servicios, 'status' => 1]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function privado(){
+        $servicios = Servicio::all()->where('status', 0);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
+        return view('admin.control-panel', ['servicios' => $servicios, 'status' => 0]);
     }
 }

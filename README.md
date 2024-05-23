@@ -27,6 +27,19 @@ Se puede utilizar componentes extra de Laravel. Las vistas la debes realizar en 
 7. **Múltiples Chats**
 8. **Tests con Pest**
 
+## Usuarios de prueba
+Ejecutar [lando artisan migrate] para migrar la base de datos.
+
+Luego ejecutar [lando artisan db:seed --class=ExampleSeeder] para cargar los datos de prueba. 
+
+Hay una cuenta de **administrador**: **Usuario:** admin@example.com / **Contraseña:** admin1
+
+Y 3 de usuarios:
+
+1. **Usuario:** aitor@example.com / **Contraseña:** aitor1
+2. **Usuario:** nerea@example.com / **Contraseña:** nerea1
+3. **Usuario:** maria@example.com / **Contraseña:** maria1
+
 ## Sistema de login y registro de usuarios
 Todo el sistema de login y registro se encuentra en [`RegisterUserController.php`](app/Http/Controllers/RegisterUserController.php) y el sistema de login en [`SessionController.php`](app/Http/Controllers/SessionController.php). Las vistas relativas al login y registros están en el directorio [`auth`](resources/views/auth).
 

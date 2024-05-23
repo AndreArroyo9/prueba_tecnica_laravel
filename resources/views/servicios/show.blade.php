@@ -33,7 +33,7 @@
 
                     <div class="col d-flex flex-column pt-3">
                         <p class="text-justify">Precio: {{ $servicio->price }} €</p>
-
+                        @auth
                         @can('createChat', $servicio) {{--Solo se pueden crear chats si no existe ninguno, tampoco pueden creadores o admins--}}
 
                             <form method="POST" action="/servicios/{{ $servicio->id }}/chat/{{ auth()->id() }}">
@@ -46,8 +46,8 @@
                             @cannot('viewChats', $servicio) {{--Los creadores no pueden abrir chats--}}
                                     <a href="/servicios/{{ $servicio->id }}/chat/{{ auth()->id() }}" class="btn btn-primary w-100">Abrir chat</a>
                             @endcannot
-
                         @endcan
+                        @endauth
                             <button class="btn btn-outline-secondary btn-lg mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 Más servicios de {{ $servicio->creator->user->name }}
                             </button>

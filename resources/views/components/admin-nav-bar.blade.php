@@ -16,9 +16,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/admin/privados">Privados</a>
                         <a class="dropdown-item" href="/admin/publicos">Públicos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/servicios">Categoría 1</a>
-                        <a class="dropdown-item" href="#">Categoría 2</a>
+
                     </div>
                 </li>
             </ul>
